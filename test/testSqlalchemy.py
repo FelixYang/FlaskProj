@@ -8,6 +8,7 @@ from sqlalchemy import create_engine
 
 engine = create_engine("sqlite:///tutorial.db", echo=True) #创建到数据库的连接,echo=True 表示用logging输出调试结果
 metadata = MetaData() #跟踪表属性
+
 user_table = Table( #创建一个表所需的信息:字段,表名等
     'tf_user', metadata,
     Column('id', Integer, primary_key=True),
@@ -32,6 +33,13 @@ u.user_name='dongwm'
 u.email_address='dongwm@dongwm.com'
 u.password='testpass'  #给映射类添加以下必要的属性,因为上面创建表指定这几个字段不能为空
 session.add(u)  #在session中添加内容
+
+u2 = User()
+u2.user_name = "Felix"
+u2.email_address = 'Felix@123.com'
+u2.password = "pass2"
+session.add(u2)
+
 session.flush() #保存数据
 session.commit() #数据库事务的提交,sisson自动过期而不需要关闭
 
