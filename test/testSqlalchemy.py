@@ -6,9 +6,11 @@ from datetime import datetime
 from sqlalchemy import Table, MetaData, Column, ForeignKey, Integer, String, Unicode, DateTime #会SQL的人能理解这些函数吧?
 from sqlalchemy import create_engine
 
+
 engine = create_engine("sqlite:///tutorial.db", echo=True) #创建到数据库的连接,echo=True 表示用logging输出调试结果
 metadata = MetaData() #跟踪表属性
 
+#如何判断表已经存在？可以避免重复创建表?
 user_table = Table( #创建一个表所需的信息:字段,表名等
     'tf_user', metadata,
     Column('id', Integer, primary_key=True),
@@ -20,6 +22,7 @@ user_table = Table( #创建一个表所需的信息:字段,表名等
     Column('created', DateTime, default=datetime.now))
 
 metadata.create_all(engine)  #在数据库中生成表
+
 class User(object):
     pass #创建一个映射类‰
 
